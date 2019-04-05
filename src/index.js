@@ -7,6 +7,7 @@ const srv = express();
 srv.use(morgar("dev"));
 srv.use(cors());
 srv.use(routes);
+const algo = () => {console.log}
 //srv.use(express.static("./public"));
 
 srv.listen(6969, function() {
