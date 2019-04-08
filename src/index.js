@@ -3,13 +3,10 @@ const morgar = require('morgan');
 const routes = require('./routes.js');
 const cors = require('cors');
 const srv = express();
-import rxsqlite from './createObservableFromSqlite'
 
 srv.use(morgar("dev"));
 srv.use(cors());
 srv.use(routes);
-
-
 
 //srv.use(express.static("./public"));
 

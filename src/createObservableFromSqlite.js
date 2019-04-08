@@ -15,11 +15,9 @@ function createObservableFromSqlite(query, db) {
                     db.close();
                 }
             );
-        } catch (e) {
+        } catch(e) {
             observer.error(e);
             db.close();
-        }
-        return function unsubscribe() {
         }
     });
 }
