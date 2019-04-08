@@ -1,20 +1,27 @@
 
 import {Observable} from 'rxjs';
-import sqlite from 'sqlite3'
 
-
-console.log('sqlite', sqlite);//TODO: borrame.
-console.log('Observable', Observable);//TODO: borrame.
-
-/**
- * Crea un Observable del resultado de una consulta a una sqlite3
- *
- * @param query
- * @param db
- */
 function createObservableFromSqlite(query, db) {
-
-
+    return Observable.create(function Subscription(observer) {
+        try {
+            db.each(
+                query,
+                function onEachRow(err, row){
+                    if(err) observer.error(err);
+                    observer.next(row);
+                },
+                function onComplete() {
+                    observer.complete();
+                    db.close();
+                }
+            );
+        } catch (e) {
+            observer.error(e);
+            db.close();
+        }
+        return function unsubscribe() {
+        }
+    });
 }
 
 export default createObservableFromSqlite;
