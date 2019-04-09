@@ -20,7 +20,6 @@ function createObservableFromSqlite(query, db) {
             observer.error(e);
             db.close();
         }
-        return function unsubscribe() {};
     });
 }
 

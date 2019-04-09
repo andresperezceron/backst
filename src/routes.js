@@ -12,7 +12,7 @@ router.get("/users", function(req, res) {
     stream$.subscribe(
         (next) => users.push(next),
         (error) => res.json(error),
-        () => res.json(users)
+        () => res.json({"users": users})
     )
 });
 

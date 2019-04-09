@@ -14,7 +14,6 @@ var sqlite3 = require('sqlite3').verbose();
 router.get("/users", function (req, res) {
     var db = new sqlite3.Database("./db/stdb.db");
     var query = "SELECT * FROM users";
-
     var stream$ = (0, _createObservableFromSqlite2.default)(query, db);
     var users = [];
 
@@ -23,22 +22,8 @@ router.get("/users", function (req, res) {
     }, function (error) {
         return res.json(error);
     }, function () {
-        return res.json(users);
+        return res.json({ "users": users });
     });
-
-    /*db.serialize(function() {
-        db.each("SELECT * FROM users", function(err, row) {
-            let user = {};
-            user.id = row.id;
-            user.name = row.name;
-            user.login = row.login;
-            user.password = row.password;
-            users.push(user);
-        },() => {
-            res.json({"users" : users})
-        });
-    });
-    db.close();*/
 });
 
 module.exports = router;
