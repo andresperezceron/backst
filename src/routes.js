@@ -16,4 +16,8 @@ router.get("/users", function(req, res) {
     )
 });
 
+router.post("/login", function(req, res) {
+    alert(req.body.name);
+
+});
 module.exports = router;
