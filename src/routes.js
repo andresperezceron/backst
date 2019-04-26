@@ -12,11 +12,13 @@ router.get("/users", function(req, res) {
     stream$.subscribe(
         (next) => users.push(next),
         (error) => res.json(error),
-        () => res.json({"users": users})
+        () => res.json(users)
     )
 });
 
 router.post("/login", function(req, res) {
+    console.log("hoooooola");
+    const db = new sqlite3.Database("./db/stdb.db");
     alert(req.body.name);
 
 });
