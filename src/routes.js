@@ -21,7 +21,7 @@ router.post("/login", function(req, res) {
     const db = new sqlite3.Database("./db/stdb.db");
     console.log(req.body.name);
     console.log(req.body.password);
-    res.json(req.body.name === 'pepe' && req.body.password = 'pepa'? true:false)
+    res.json(true)
 
 });
 module.exports = router;
