@@ -2,7 +2,7 @@
 import {Observable} from 'rxjs';
 
 function createObservableFromSqlite(query, db) {
-    return Observable.from(function Subscription(observer) {
+    return Observable.create(function Subscription(observer) {
         try {
             db.each(
                 query,

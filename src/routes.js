@@ -5,7 +5,7 @@ import createObservableFromSqlite from './createObservableFromSqlite.js'
 
 router.get("/users", function(req, res) {
     const db = new sqlite3.Database("./db/stdb.db");
-    const query = "SELECT * FROM users";
+    const query = "SELECT * FROM users;";
     const stream$ = createObservableFromSqlite(query, db);
     let users = [];
 
@@ -20,7 +20,8 @@ router.post("/login", function(req, res) {
     const email = req.body.email;
     const password = req.body.password;
     const db = new sqlite3.Database("./db/stdb.db");
-    const query = `SELECT COUNT(*) AS count FROM users u WHERE u.login=${email} AND u.password=${password};`;
+    const query = "SELECT COUNT(*) AS count FROM users u WHERE u.login='" + email + "' AND u.password='" + password + "';";
     db.get(query, (error, row) => res.json(row.count > 0));
+    db.close();
 });
 module.exports = router;
