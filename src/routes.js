@@ -24,4 +24,18 @@ router.post("/login", function(req, res) {
     db.get(query, (error, row) => res.json(row.count > 0));
     db.close();
 });
+
+router.post("/user", function(req, res) {
+    const email = req.body.email;
+    const db = new sqlite3.Database("./db/stdb.db");
+    const query = "SELECT * FROM users u WHERE u.login='" + email + "';";
+    db.get(query, (error, row) => res.json({
+        id: row.id,
+        name: row.name,
+        login: row.login,
+        password: row.password
+    }));
+    db.close();
+});
+
 module.exports = router;
