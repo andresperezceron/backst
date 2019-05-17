@@ -20,21 +20,18 @@ router.post("/login", function(req, res) {
     const email = req.body.email;
     const password = req.body.password;
     const db = new sqlite3.Database("./db/stdb.db");
-    const query = "SELECT COUNT(*) AS count FROM users u WHERE u.login='" + email + "' AND u.password='" + password + "';";
-    db.get(query, (error, row) => res.json(row.count > 0));
-    db.close();
-});
+    const query = "SELECT * FROM users WHERE (SELECT count(*) FROM users u WHERE u.login='" + email + "' " +
+        "AND u.password='" + password + "') > 0 AND users.login='" + email + "';";
 
-router.post("/user", function(req, res) {
-    const email = req.body.email;
-    const db = new sqlite3.Database("./db/stdb.db");
-    const query = "SELECT * FROM users u WHERE u.login='" + email + "';";
-    db.get(query, (error, row) => res.json({
-        id: row.id,
-        name: row.name,
-        login: row.login,
-        password: row.password
-    }));
+    db.get(query, (error, row) => {
+        const user = row ? {
+            id: row.id,
+            name: row.name,
+            login: row.login,
+            password: row.password
+        } : null;
+        res.json(user);
+    });
     db.close();
 });
 
