@@ -11,8 +11,6 @@ srv.use(bodyParser.urlencoded({ extended: false }));
 srv.use(bodyParser.json());
 srv.use(routes);
 
-//srv.use(express.static("./public"));
-
 srv.listen(6969, function() {
     console.log("Server rulando :6969");
 });
